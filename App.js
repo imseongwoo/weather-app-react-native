@@ -24,12 +24,14 @@ export default function App() {
       const location = await Location.getCurrentPositionAsync()
 
       const { latitude, longitude } = location.coords
+      console.log(latitude , longitude)
 
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${unitsSystem}&appid=${WEATHER_API_KEY}`
       
       const response = await fetch(weatherUrl)
       
       const result = await response.json()
+      console.log(result)
 
       if (response.ok) {
         setCurrentWeather(result)
