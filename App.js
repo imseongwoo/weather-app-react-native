@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location'
 import WeatherInfo from './components/WeatherInfo'
+import WeatherDetails from './components/WeatherDetails'
+import ReloadIcon from './components/ReloadIcon'
+
 
 const WEATHER_API_KEY = "57d0309882af17959f1c27a2c26991c2"
 
@@ -14,6 +17,8 @@ export default function App() {
     load()
   }, [])
   async function load() {
+    setCurrentWeather(null)
+    setErrorMessage(null)
     try {
       let { status } = await Location.requestPermissionsAsync()
 
@@ -24,15 +29,15 @@ export default function App() {
       const location = await Location.getCurrentPositionAsync()
 
       const { latitude, longitude } = location.coords
-      console.log(latitude , longitude)
+      
 
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${unitsSystem}&appid=${WEATHER_API_KEY}`
       
       const response = await fetch(weatherUrl)
       
       const result = await response.json()
-      console.log(result)
-
+      
+      console.log(latitude,longitude)
       if (response.ok) {
         setCurrentWeather(result)
         console.log(result)
@@ -49,10 +54,11 @@ export default function App() {
     return (
       <View style={styles.container}>
         <View style={styles.main}>
+          
           <WeatherInfo currentWeather={currentWeather}/>
+          
         </View>
-
-        
+        <WeatherDetails currentWeather={currentWeather}/>
       </View>
     )
   } else {
