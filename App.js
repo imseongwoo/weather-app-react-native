@@ -6,7 +6,7 @@ import WeatherDetails from './components/WeatherDetails'
 import ReloadIcon from './components/ReloadIcon'
 
 
-const WEATHER_API_KEY = "57d0309882af17959f1c27a2c26991c2"
+const WEATHER_API_KEY = "발급받은 api 키"
 
 
 export default function App() {
